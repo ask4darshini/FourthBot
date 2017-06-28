@@ -26,34 +26,34 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
 	session.sendTyping();
     session.send("Hi , How are you , Which Line of Business i can help you with today ?");
-	session.send("Type LOB to list the available Business areas");
+	session.send("Type Dept to list the available Business areas");
 });
 
 
 
 // Add dialog to return list of shirts available
-bot.dialog('LOB', function (session) {
+bot.dialog('Dept', function (session) {
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.list)
     msg.attachments([
         new builder.HeroCard(session)
             .buttons([
-                builder.CardAction.imBack(session, "Display available products in Consumer LoB", "Consumer")
+                builder.CardAction.imBack(session, "Display available products in Consumer Dept", "Consumer")
             ]),
         new builder.HeroCard(session)
             .buttons([
-                builder.CardAction.imBack(session, "Display available products in Commercial LoB", "Commercial")
+                builder.CardAction.imBack(session, "Display available products in Commercial Dept", "Commercial")
             ]),
 		new builder.HeroCard(session)
 			.buttons([
-				builder.CardAction.imBack(session, "Display available products in Free services LoB", "Free services")
+				builder.CardAction.imBack(session, "Display available products in Free services Dept", "Free services")
 		])
     ]);
     session.send(msg).endDialog();
-}).triggerAction({ matches: /^(LOB|list)/i });
+}).triggerAction({ matches: /^(Dept|list)/i });
 
 // Add dialog to handle 'options' button click
-bot.dialog('LOBButtonClick', [
+bot.dialog('DeptButtonClick', [
     function (session, args, next) {
 		
 		
@@ -122,7 +122,7 @@ bot.dialog('LOBButtonClick', [
         }
         session.userData.cart.push(item);
     }
-]).triggerAction({ matches: /(Display|Outcome)\s.*LoB/i });
+]).triggerAction({ matches: /(Display|Outcome)\s.*Dept/i });
 
 // Add dialog to return list of shirts available
 bot.dialog('options', function (session) {
@@ -293,8 +293,7 @@ bot.dialog('flipCoinDialog', [
 								});
 							    var msg = new builder.Message(session);
 								msg.attachmentLayout(builder.AttachmentLayout.list)
-								msg.attachments([
-									
+								msg.attachments([									
 									new builder.ReceiptCard(session)
 									.title(titls)
 									.items(result2)
