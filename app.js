@@ -25,14 +25,20 @@ server.post('/api/messages', connector.listen());
 // Create bot and default message handler
 var bot = new builder.UniversalBot(connector, function (session) {
 	session.sendTyping();
-    session.send("Hi , How are you , Which Line of Business i can help you with today ?");
+    session.send("Hi" + session.username + ", How are you , Which Line of Business i can help you with today ?");
 	session.send("Type Dept to list the available Business areas");
 });
 
+// Do not persist userData
+bot.set(`persistUserData`, false);
 
+// Do not persist conversationData
+bot.set(`persistConversationData`, false);
 
 // Add dialog to return list of shirts available
 bot.dialog('Dept', function (session) {
+	
+
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.list)
     msg.attachments([
@@ -54,8 +60,7 @@ bot.dialog('Dept', function (session) {
 
 // Add dialog to handle 'options' button click
 bot.dialog('DeptButtonClick', [
-    function (session, args, next) {
-		
+    function (session, args, next) {		
 		
 					// Create connection to database
 				var config = {
