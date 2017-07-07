@@ -25,7 +25,7 @@ server.post('/api/messages', connector.listen());
 // Create bot and default message handler
 var bot = new builder.UniversalBot(connector, function (session) {
 	session.sendTyping();
-    session.send("Hi" + session.username + ", How are you , Which Line of Business i can help you with today ?");
+    session.send("Hi, How are you , Which Line of Business i can help you with today ?");
 	session.send("Type Dept to list the available Business areas");
 });
 
